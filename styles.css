@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  margin-top: 20px;
+  justify-content: center;
+}
+.visor {
+  grid-column: span 4;
+  grid-row: span 2;
+  background-color: lightsteelblue;
+  font-size: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around !important;
+}
+.row2 {
+  font-size: 3rem;
+}
+.numbers {
+  display: grid;
+  grid-template-columns: repeat(4, 70px);
+  grid-template-rows: repeat(7, 70px);
+  gap: 12px;
+  border: 1px solid black;
+  border-radius: 6px;
+  padding: 25px;
+  background-color: lightgrey;
+}
+
+.numbers > div {
+  border: 1px solid black;
+  border-radius: 6px;
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+}
