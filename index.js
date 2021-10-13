@@ -25,6 +25,12 @@ let equalWasPreviousPress = null;
 
 function operationFromVisor() {
     let operation = visorRow1.textContent
+    let operationLastElement = operation[operation.length-1]
+    
+    // If last entry is an operand +,-,*,/,. it is removed for enable math
+    if(operationLastElement=="+" || operationLastElement=="-" || operationLastElement=="*" || operationLastElement=="/" || operationLastElement=="."){
+        operation = operation.slice(0,-1)
+    }
     let result = eval(`${operation}`)
     
     // For numbers over 26 digits show scientific notation:
@@ -71,3 +77,14 @@ function showInDisplay(e) {
 function deletePrevious(e) {
     visorRow1.textContent = (Array.from(visorRow1.textContent).slice(0,-1)).join("")
 }
+
+//Add keyboard functionality
+window.addEventListener("keydown",(e)=>{
+    // console.log(e.key)
+    try {
+        let keyPressed=document.querySelector(`.btn[data-key="${e.key}"]`)
+        keyPressed.click()
+        keyPressed.classList.add("btnActiveKeyboard")
+        setTimeout(()=>keyPressed.classList.remove("btnActiveKeyboard"),200)
+    } catch (error) {}
+  })
