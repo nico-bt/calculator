@@ -1,3 +1,9 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to right, darkblue, blue, #00aaff);
+}
+
 .container {
   display: flex;
   margin-top: 20px;
@@ -6,27 +12,37 @@
 .visor {
   grid-column: span 4;
   grid-row: span 2;
-  background-color: lightsteelblue;
-  font-size: 2rem;
+  background-color: lightyellow;
+  font-size: 1.75rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-around !important;
+  justify-content: space-between;
+  text-align: end;
+  padding: 15px 10px;
+  border: 1px solid black;
+  border-radius: 6px;
+  word-wrap: break-word;
+  overflow-y: auto;
+}
+.row1 {
+  color: #555;
 }
 .row2 {
-  font-size: 3rem;
+  font-size: 2.5rem;
 }
 .numbers {
   display: grid;
-  grid-template-columns: repeat(4, 70px);
+  grid-template-columns: repeat(4, 95px);
   grid-template-rows: repeat(7, 70px);
   gap: 12px;
-  border: 1px solid black;
+  border: 2px solid black;
   border-radius: 6px;
-  padding: 25px;
+  box-shadow: 8px 6px 6px black;
+  padding: 20px;
   background-color: lightgrey;
 }
 
-.numbers > div {
+.btn {
   border: 1px solid black;
   border-radius: 6px;
   background-color: black;
@@ -35,4 +51,23 @@
   justify-content: center;
   align-items: center;
   font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 3px 3px 1px #666;
+}
+
+.btn:active {
+  /* background-color: #3e8e41; */
+  transform: translateY(4px);
+  box-shadow: 0 0 0;
+}
+.btn:hover {
+  background-color: rgb(200, 200, 200);
+  color: black;
+}
+
+.col-span-2 {
+  grid-column: span 2;
+}
+.row-span-2 {
+  grid-row: span 2;
 }
