@@ -31,8 +31,11 @@ function operationFromVisor() {
     if(operationLastElement=="+" || operationLastElement=="-" || operationLastElement=="*" || operationLastElement=="/" || operationLastElement=="."){
         operation = operation.slice(0,-1)
     }
-    let result = eval(`${operation}`)
-    
+    // Calculation
+    let result
+    if (typeof(eval(`${operation}`))=="number") {
+        result = eval(`${operation}`)
+    }
     // For numbers over 26 digits show scientific notation:
     if (result.toLocaleString().length>26) {
         visorRow2.textContent= result.toExponential()
