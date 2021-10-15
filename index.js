@@ -27,6 +27,10 @@ function operationFromVisor() {
     let operation = visorRow1.textContent
     let operationLastElement = operation[operation.length-1]
 
+    // If last entry is an operand +,-,*,/,. it is removed for enable math (eg "85+25+")
+    if(operationLastElement=="+" || operationLastElement=="-" || operationLastElement=="*" || operationLastElement=="/" || operationLastElement=="."){
+        operation = operation.slice(0,-1)
+    }
     // Calculation
     let result
     try {
