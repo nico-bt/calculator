@@ -29,6 +29,7 @@ body {
 }
 .row2 {
   font-size: 2.5rem;
+  font-variant: small-caps;
 }
 .numbers {
   display: grid;
