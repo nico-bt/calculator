@@ -36,8 +36,13 @@ function operationFromVisor() {
     // Calculation
     let result
     try {
-        if (typeof(eval(`${operation}`))=="number") {
-            result = eval(`${operation}`)
+        if (typeof(eval(operation))=="number") {
+            result = eval(operation)
+            //result from 0/0
+            if(isNaN(result)){
+                equalWasPreviousPress=true;
+                return visorRow2.textContent = "Error!"
+            }
         }
     } catch (error) {
         equalWasPreviousPress=true;
