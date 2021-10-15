@@ -21,13 +21,15 @@ del.addEventListener("click", (e)=> deletePrevious(e))
 //===========================================
 // Functions
 // ==========================================
+//For tracking if last key pressed was "="
 let equalWasPreviousPress = null;
 
+// Make the math from the content of row 1 of the visor
 function operationFromVisor() {
     let operation = visorRow1.textContent
     let operationLastElement = operation[operation.length-1]
 
-    // If last entry is an operand +,-,*,/,. it is removed for enable math (eg "85+25+")
+    // If last entry is an operator (+,-,*,/,.) it is removed for enable math (eg "85+25+" --> "85+25")
     if(operationLastElement=="+" || operationLastElement=="-" || operationLastElement=="*" || operationLastElement=="/" || operationLastElement=="."){
         operation = operation.slice(0,-1)
     }
@@ -38,12 +40,13 @@ function operationFromVisor() {
             result = eval(`${operation}`)
         }
     } catch (error) {
+        equalWasPreviousPress=true;
         return visorRow2.textContent = "Error!"
     }
 
-    // For numbers over 26 digits show scientific notation:
+    // Display result in row 2.For numbers over 26 digits show scientific notation:
     if (result.toLocaleString().length>26) {
-        visoRow2.textContent= result.toExponential()
+        visorRow2.textContent= result.toExponential()
     } else {
         visorRow2.textContent=result.toLocaleString('en-US', {maximumFractionDigits:16});
     }
@@ -51,7 +54,7 @@ function operationFromVisor() {
     visorRow1.textContent=result
     equalWasPreviousPress=true;
 }
-
+// Delete all content
 function allClear() {
     visorRow1.textContent="";
     visorRow2.textContent="";
@@ -81,7 +84,6 @@ function showInDisplay(e) {
     if( pressed=="." && lastElement=="."){
         return
     }
-
     //Add content pressed
     visorRow1.textContent+=pressed;
     equalWasPreviousPress=false;
