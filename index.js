@@ -26,22 +26,24 @@ let equalWasPreviousPress = null;
 function operationFromVisor() {
     let operation = visorRow1.textContent
     let operationLastElement = operation[operation.length-1]
-    
-    // If last entry is an operand +,-,*,/,. it is removed for enable math
-    if(operationLastElement=="+" || operationLastElement=="-" || operationLastElement=="*" || operationLastElement=="/" || operationLastElement=="."){
-        operation = operation.slice(0,-1)
-    }
+
     // Calculation
     let result
-    if (typeof(eval(`${operation}`))=="number") {
-        result = eval(`${operation}`)
+    try {
+        if (typeof(eval(`${operation}`))=="number") {
+            result = eval(`${operation}`)
+        }
+    } catch (error) {
+        return visorRow2.textContent = "Error!"
     }
+
     // For numbers over 26 digits show scientific notation:
     if (result.toLocaleString().length>26) {
-        visorRow2.textContent= result.toExponential()
+        visoRow2.textContent= result.toExponential()
     } else {
         visorRow2.textContent=result.toLocaleString('en-US', {maximumFractionDigits:16});
     }
+
     visorRow1.textContent=result
     equalWasPreviousPress=true;
 }
@@ -58,13 +60,12 @@ function showInDisplay(e) {
     
     // Pressing '=' or 'del' do not add symbols to the display
     if (pressed=="=" || pressed=="del") return
-
+    
     // If last key was "=" and next key is not an operator(+,-,*,/) to concatenate operations on the last result --> allClear() to start new calculations
     if(equalWasPreviousPress && !classList.includes("operator")){
         allClear()
         equalWasPreviousPress=false
     }
-    
     //Pressing an operator twice only display the last one
     if( classList.includes("operator") && (lastElement=="+" || lastElement=="-" || lastElement=="*" || lastElement=="/") ){
         //replace last operator with the new one pressed:
@@ -72,7 +73,12 @@ function showInDisplay(e) {
         visorRow1Array.splice(-1,1,pressed)
         return(visorRow1.textContent = visorRow1Array.join(""));
     }
-    //Else just add content pressed
+    // Avoiding enter to consecutive decimal points (eg "25....254")
+    if( pressed=="." && lastElement=="."){
+        return
+    }
+
+    //Add content pressed
     visorRow1.textContent+=pressed;
     equalWasPreviousPress=false;
 }
